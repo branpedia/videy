@@ -1,126 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Videy API & Player</title>
-    <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            background: #f9f9f9; 
-            text-align: center; 
-            padding: 30px; 
-        }
-        .url-input {
-            margin: 20px auto;
-            padding: 10px;
-            width: 90%;
-            max-width: 600px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-        }
-        video { 
-            width: 90%; 
-            max-width: 720px; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2); 
-        } 
-        .json-box { 
-            margin-top: 30px; 
-            background: #fff; 
-            padding: 20px; 
-            border-radius: 8px; 
-            width: 90%; 
-            max-width: 700px; 
-            margin-left: auto; 
-            margin-right: auto; 
-            text-align: left; 
-            font-family: monospace; 
-            box-shadow: 0 0 8px rgba(0,0,0,0.1); 
-        }
-        .button {
-            background: #4285f4;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-left: 10px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Videy</title>
+  <link rel="stylesheet" href="style.css"> <!-- pindahkan ke file eksternal -->
 </head>
 <body>
-    <h1>Videy API & Player</h1>
-    
-    <div>
-        <input type="text" id="videoUrl" class="url-input" 
-               placeholder="Masukkan URL video (contoh: https://videy.co/v/?id=mjXtbZDA1)" 
-               value="https://videy.co/v/?id=mjXtbZDA1">
-        <button onclick="loadVideo()" class="button">Load Video</button>
-    </div>
-    
-    <video id="videoplayer" controls>
-        <source id="videoSrc" src="" type="video/mp4">
-        Browser tidak mendukung video.
-    </video>
-    
-    <h2>API JSON Result</h2>
-    <div class="json-box">
-        <pre id="jsonOutput"></pre>
-    </div>
+  <h1>Videy</h1>
+  <div id="app">
+    <input type="text" id="urlInput" placeholder="Paste URL" />
+    <button id="loadBtn">Load</button>
+    <video id="player" controls></video>
+    <pre id="json"></pre>
+  </div>
 
-    <script>
-        // Fungsi untuk mengekstrak ID dari URL Videy
-        function extractVideoId(url) {
-            try {
-                const urlObj = new URL(url);
-                const params = new URLSearchParams(urlObj.search);
-                return params.get('id');
-            } catch (e) {
-                return null;
-            }
-        }
-
-        // Fungsi untuk memuat video
-        function loadVideo() {
-            const inputUrl = document.getElementById('videoUrl').value.trim();
-            const id = extractVideoId(inputUrl) || 'mjXtbZDA1';
-            const creator = 'branpedia';
-            const directUrl = `https://cdn.videy.co/${id}.mp4`;
-            
-            // Update video source
-            document.getElementById('videoSrc').src = directUrl;
-            document.getElementById('videoplayer').load();
-            
-            // Update URL di address bar tanpa reload halaman
-            const newUrl = `${window.location.origin}${window.location.pathname}?videy=${encodeURIComponent(inputUrl)}`;
-            window.history.pushState({ path: newUrl }, '', newUrl);
-            
-            // Tampilkan API response
-            const apiResponse = {
-                Creator: creator,
-                directUrl: directUrl,
-                originalUrl: inputUrl,
-                videoId: id
-            };
-            document.getElementById('jsonOutput').textContent = JSON.stringify(apiResponse, null, 2);
-        }
-
-        // Saat halaman dimuat, cek parameter URL
-        window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const videyUrl = urlParams.get('videy');
-            
-            if (videyUrl) {
-                document.getElementById('videoUrl').value = decodeURIComponent(videyUrl);
-                loadVideo();
-            } else {
-                // Jika tidak ada parameter, load video default
-                loadVideo();
-            }
-        };
-    </script>
+  <script src="main.js"></script> <!-- semua logika pindah ke file ini -->
 </body>
 </html>
