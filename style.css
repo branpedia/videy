@@ -1,0 +1,38 @@
+body {
+  font-family: sans-serif;
+  background: #f2f2f2;
+  text-align: center;
+  padding: 20px;
+}
+input {
+  padding: 10px;
+  width: 80%;
+  max-width: 400px;
+}
+button {
+  padding: 10px 15px;
+  background: #4285f4;
+  color: white;
+  border: none;
+  margin-left: 10px;
+  cursor: pointer;
+}
+video {
+  margin-top: 20px;
+  width: 90%;
+  max-width: 700px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+pre {
+  background: #fff;
+  padding: 10px;
+  margin-top: 20px;
+  font-family: monospace;
+  text-align: left;
+  width: 90%;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 8px;
+}
