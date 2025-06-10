@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Videy API & Player</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      text-align: center;
+      padding: 30px;
+    }
+    video {
+      width: 90%;
+      max-width: 720px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .json-box {
+      margin-top: 30px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+      font-family: monospace;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Video dari <span id="creator">branpedia</span></h1>
+
+  <video id="videoplayer" controls>
+    <source id="videoSrc" src="" type="video/mp4" />
+    Browser tidak mendukung video.
+  </video>
+
+  <div class="json-box">
+    <h3>API JSON Result</h3>
+    <pre id="jsonOutput"></pre>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search)
+    const id = urlParams.get('id') || 'mjXtbZDA1'
+    const creator = 'branpedia'
+    const directUrl = `https://cdn.videy.co/${id}.mp4`
+
+    document.getElementById('videoSrc').src = directUrl
+    document.getElementById('videoplayer').load()
+
+    const apiResponse = {
+      Creator: creator,
+      directUrl: directUrl
+    }
+
+    document.getElementById('jsonOutput').textContent = JSON.stringify(apiResponse, null, 2)
+  </script>
+
+</body>
+</html>
